@@ -11,8 +11,8 @@ const ChatScreen = ({ children, name }) => {
   return (
     <>
       <div className='box-border overflow-y-scroll w-full h-full flex flex-col pb-[190px]'>
-        <div className='w-full flex'>
-          <span className='text-sm bg-gray-400 p-2 rounded mx-auto my-3'>
+        <div className='flex w-full sm:max-w-none max-w-[200px] mx-auto'>
+          <span className='text-sm bg-gray-400 p-2 rounded mx-auto my-3 text-center'>
             This is the start of your conversation with {name}
           </span>
         </div>
@@ -87,7 +87,7 @@ export const MessageInput = ({ user, chatId, bottomRef }) => {
   return (
     <>
       <form
-        className='flex p-4 items-center justify-between bottom-0 left-0 sticky bg-gray-800 border-t border-gray-400'
+        className='flex p-4 items-center justify-between bottom-0 left-0 w-full sm:sticky fixed bg-gray-800 border-t border-gray-400'
         onSubmit={sendMessage}
       >
         <input

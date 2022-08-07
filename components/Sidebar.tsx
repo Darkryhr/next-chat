@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import validator from 'email-validator';
 import { MdAdd, MdMoreHoriz } from 'react-icons/md';
@@ -13,6 +13,7 @@ import {
 import getSendingToEmail from '@utils/getSendingToEmail';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Loader from './Loader';
 
 const Sidebar = () => {
   const auth = useAuth();
@@ -20,7 +21,12 @@ const Sidebar = () => {
   const [snapshot, loading, error] = useCollection(userChatRef);
   const router = useRouter();
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className='flex items-center justify-center w-full h-screen absolute bg-gray-800'>
+        <Loader />
+      </div>
+    );
 
   return (
     <aside
@@ -39,6 +45,7 @@ export default Sidebar;
 
 const Topbar = ({ user, snapshot }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef(null);
   const router = useRouter();
 
   const chatExists = otherUser =>
@@ -66,6 +73,16 @@ const Topbar = ({ user, snapshot }) => {
     }
   };
 
+  const handleClickOutside = event => {
+    if (ref.current && !ref.current.contains(event.target)) setIsOpen(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, true);
+    return () =>
+      document.removeEventListener('click', handleClickOutside, true);
+  }, []);
+
   return (
     <div className='flex w-full justify-between items-center px-4 py-3 bg-transparent h-16 border-b border-b-gray-500'>
       <Image
@@ -75,7 +92,7 @@ const Topbar = ({ user, snapshot }) => {
         alt={user?.name}
         className='rounded-full'
       />
-      <div className='flex space-x-2 relative'>
+      <div className='flex space-x-2 relative items-center'>
         <button
           type='button'
           className='rounded-full hover:bg-gray-600 p-2 text-gray-100'
@@ -83,6 +100,7 @@ const Topbar = ({ user, snapshot }) => {
         >
           <MdAdd size={26} />
         </button>
+        <span className='bg-gray-300 w-[1px] h-6'></span>
         <button
           type='button'
           className='rounded-full hover:bg-gray-600 p-2 text-gray-100'
@@ -90,7 +108,7 @@ const Topbar = ({ user, snapshot }) => {
         >
           <MdMoreHoriz size={26} />
         </button>
-        {isOpen && <Dropdown close={setIsOpen} />}
+        <div ref={ref}>{isOpen && <Dropdown close={setIsOpen} />}</div>
       </div>
     </div>
   );
@@ -165,19 +183,19 @@ const ChatItem = ({ id, users }) => {
         {recipient ? (
           <Image
             src={recipient?.photoUrl}
-            width='56px'
-            height='56px'
+            width='50px'
+            height='50px'
             className='rounded-full'
             alt={recipient?.name}
           />
         ) : (
-          <div className='bg-gray-500 h-14 w-14 rounded-full'></div>
+          <div className='bg-gray-500 h-[50px] w-[50px] rounded-full'></div>
         )}
-        <div className='ml-3'>
-          <h3 className='font-semibold'>
+        <div className='ml-4'>
+          <h3 className='font-semibold sm:text-md text-sm'>
             {recipient?.name ? recipient?.name : recipientUser.split('@')[0]}
           </h3>
-          <p className='text-sm text-gray-100'>{lastMessage}</p>
+          <p className='text-gray-100 sm:text-sm text-xs'>{lastMessage}</p>
         </div>
       </div>
     </Link>

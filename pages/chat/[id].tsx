@@ -3,6 +3,7 @@ import ChatScreen, {
   MessageInput,
   RecipientHeader,
 } from '@components/ChatScreen';
+import Loader from '@components/Loader';
 import { useAuth } from '@lib/auth';
 import {
   getAllChatMessages,
@@ -45,8 +46,8 @@ const ChatSession = ({ messages, chat }) => {
     }
   };
 
-  if (loading) return null;
-  console.log(chat.id === router.query.id);
+  if (loading) return <Loader />;
+
   return (
     <div
       className={`sm:block w-full relative h-full ${
