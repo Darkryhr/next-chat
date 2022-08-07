@@ -46,9 +46,13 @@ const ChatSession = ({ messages, chat }) => {
   };
 
   if (loading) return null;
-
+  console.log(chat.id === router.query.id);
   return (
-    <div className='sm:block hidden w-full relative h-full'>
+    <div
+      className={`sm:block w-full relative h-full ${
+        chat.id === router.query.id ? '' : 'hidden'
+      }`}
+    >
       <RecipientHeader
         recipient={recipient}
         name={recipient?.name ? recipient?.name : chatUser.split('@')[0]}

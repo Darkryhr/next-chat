@@ -4,17 +4,18 @@ import { AiOutlineSend } from 'react-icons/ai';
 import { newMessage } from '@lib/db';
 import { useAuth } from '@lib/auth';
 import { format } from 'date-fns';
+import Link from 'next/link';
+import { BiChevronLeft } from 'react-icons/bi';
 
 const ChatScreen = ({ children, name }) => {
   return (
     <>
-      <div className='w-full flex'>
-        <span className='text-sm bg-gray-400 p-2 rounded mx-auto my-3'>
-          This is the start of your conversation with {name}
-        </span>
-      </div>
-
       <div className='box-border overflow-y-scroll w-full h-full flex flex-col pb-[190px]'>
+        <div className='w-full flex'>
+          <span className='text-sm bg-gray-400 p-2 rounded mx-auto my-3'>
+            This is the start of your conversation with {name}
+          </span>
+        </div>
         {children}
       </div>
     </>
@@ -33,7 +34,12 @@ export const RecipientHeader = ({ name = '', photoUrl = null, recipient }) => {
   };
 
   return (
-    <div className='w-full p-4 border-b border-gray-400 flex items-center h-16 relative bg-gray-800 z-10'>
+    <div className='w-full py-4 sm:px-4 px-0 border-b border-gray-400 flex items-center h-16 relative bg-gray-800 z-10'>
+      <div className='sm:hidden block cursor-pointer'>
+        <Link href='/'>
+          <BiChevronLeft size={30} />
+        </Link>
+      </div>
       {photoUrl ? (
         <Image
           src={photoUrl}

@@ -18,11 +18,16 @@ const Sidebar = () => {
   const auth = useAuth();
   const userChatRef = getChatRef(auth.user.email);
   const [snapshot, loading, error] = useCollection(userChatRef);
+  const router = useRouter();
 
   if (loading) return <div>Loading...</div>;
 
   return (
-    <aside className='bg-gray-800 grow-0 w-full sm:max-w-[30vw] border-r border-gray-500'>
+    <aside
+      className={`bg-gray-800 sm:block grow-0 sm:max-w-[30vw] border-r border-gray-500 w-full ${
+        router.query.id ? 'hidden' : ''
+      } `}
+    >
       <Topbar user={auth.user} snapshot={snapshot} />
       <SearchBar />
       {snapshot.docs && <ChatFeed snapshot={snapshot} />}
