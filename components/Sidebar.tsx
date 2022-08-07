@@ -176,7 +176,7 @@ const ChatItem = ({ id, users }) => {
   return (
     <Link href={`/chat/${id}`} as={`/chat/${id}`}>
       <div
-        className={`flex items-center w-full transition-all hover:pl-6 p-3 cursor-pointer border-t border-gray-500 ${
+        className={`flex items-center w-full transition-all hover:pl-6 p-4 cursor-pointer border-t border-gray-500 ${
           id === router.query.id ? 'bg-gray-700' : ''
         }`}
       >
@@ -191,7 +191,7 @@ const ChatItem = ({ id, users }) => {
         ) : (
           <div className='bg-gray-500 h-[50px] w-[50px] rounded-full'></div>
         )}
-        <div className='ml-4'>
+        <div className='ml-3'>
           <h3 className='font-semibold sm:text-md text-sm'>
             {recipient?.name ? recipient?.name : recipientUser.split('@')[0]}
           </h3>
@@ -205,15 +205,15 @@ const ChatItem = ({ id, users }) => {
 const Dropdown = ({ close }) => {
   const { signout } = useAuth();
   return (
-    <div className='absolute bg-gray-800 top-12 w-40 -left-20 py-2 border border-gray-500 text-gray-100 rounded'>
+    <div className='absolute bg-gray-800 top-12 w-40 -left-16 py-2 border border-gray-500 text-gray-100 rounded'>
       <button
-        className='text-sm hover:bg-gray-600 w-full text-left  py-2 px-4'
+        className='sm:text-sm hover:bg-gray-600 w-full text-left  p-4'
         onClick={() => close(false)}
       >
         Settings
       </button>
       <button
-        className='text-sm hover:bg-gray-600 w-full text-left  py-2 px-4'
+        className='sm:text-sm hover:bg-gray-600 w-full text-left  p-4'
         onClick={() => {
           signout();
           close(false);
