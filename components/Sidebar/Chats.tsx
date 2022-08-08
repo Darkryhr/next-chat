@@ -3,6 +3,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Link from 'next/link';
+import { format } from 'date-fns';
 
 import { getLastMessage, getRecipientUserRef } from '@lib/db';
 import getSendingToEmail from '@utils/getSendingToEmail';
@@ -23,14 +24,22 @@ const ChatItem = ({ id, users }) => {
   const auth = useAuth();
   const router = useRouter();
   const [lastMessage, setLastMessage] = useState('');
+  const [lastSpoke, setLastSpoke] = useState('');
   const recipientUser = getSendingToEmail(users, auth.user.email);
   const recipientRef = getRecipientUserRef(recipientUser);
   const [recipientUserSnapshot, loading] = useCollection(recipientRef);
   const recipient = recipientUserSnapshot?.docs?.[0]?.data();
 
   useEffect(() => {
-    const lastMessage = getLastMessage(id).then(res => {
+    const today = new Date();
+
+    getLastMessage(id).then(res => {
       setLastMessage(res.data()?.lastMessage);
+      // const lastSeen = new Date(res.data()?.lastSpoke?.toDate().getTime());
+
+      // if (today.toDateString() === lastSeen.toDateString())
+      //   setLastSpoke(format(lastSeen, 'HH:mm'));
+      // else setLastSpoke(format(lastSeen, 'MMM, do'));
     });
   });
 
@@ -61,6 +70,7 @@ const ChatItem = ({ id, users }) => {
             {recipient?.name ? recipient?.name : recipientUser.split('@')[0]}
           </h3>
           <p className='text-gray-100 sm:text-sm text-xs'>{lastMessage}</p>
+          <p></p>
         </div>
       </div>
     </Link>

@@ -18,7 +18,7 @@ import {
 } from '@lib/db';
 import getSendingToEmail from '@utils/getSendingToEmail';
 
-const ChatSession = ({ chat }) => {
+const ChatSession = ({ messages, chat }) => {
   const { user } = useAuth();
   const router = useRouter();
 
