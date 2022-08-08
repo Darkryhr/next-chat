@@ -5,19 +5,12 @@ import { newMessage } from '@lib/db';
 export const MessageInput = ({ user, chatId, bottomRef }) => {
   const [input, setInput] = useState('');
 
-  const scrollToBottom = () => {
-    bottomRef.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
-  };
-
   const sendMessage = async e => {
     e.preventDefault();
     try {
       await newMessage(user.uid, chatId, input, user.email);
       setInput('');
-      scrollToBottom();
+      // scrollToBottom();
     } catch (error) {
       console.log(error);
     }
