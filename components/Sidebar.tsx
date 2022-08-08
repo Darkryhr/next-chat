@@ -14,6 +14,7 @@ import getSendingToEmail from '@utils/getSendingToEmail';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Loader from './Loader';
+import { AiOutlineUser } from 'react-icons/ai';
 
 const Sidebar = () => {
   const auth = useAuth();
@@ -189,7 +190,9 @@ const ChatItem = ({ id, users }) => {
             alt={recipient?.name}
           />
         ) : (
-          <div className='bg-gray-500 h-[50px] w-[50px] rounded-full'></div>
+          <div className='bg-gray-500 h-[50px] w-[50px] rounded-full flex items-center justify-center'>
+            <AiOutlineUser size={30} className='text-gray-100' />
+          </div>
         )}
         <div className='ml-3'>
           <h3 className='font-semibold sm:text-md text-sm'>

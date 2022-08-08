@@ -10,7 +10,7 @@ import { BiChevronLeft } from 'react-icons/bi';
 const ChatScreen = ({ children, name }) => {
   return (
     <>
-      <div className='box-border overflow-y-scroll w-full h-full flex flex-col pb-[190px]'>
+      <div className='box-border overflow-y-scroll w-full h-full flex flex-col pb-[144px]'>
         <div className='flex w-full sm:max-w-none max-w-[200px] mx-auto'>
           <span className='text-sm bg-gray-400 p-2 rounded mx-auto my-3 text-center'>
             This is the start of your conversation with {name}
@@ -43,8 +43,8 @@ export const RecipientHeader = ({ name = '', photoUrl = null, recipient }) => {
       {photoUrl ? (
         <Image
           src={photoUrl}
-          width='40px'
-          height='40px'
+          width='38vw'
+          height='38vw'
           className='rounded-full'
           alt={name}
         />
