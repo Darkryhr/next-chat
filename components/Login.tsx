@@ -1,6 +1,7 @@
 import React from 'react';
 import { BsWhatsapp } from 'react-icons/bs';
 import { FcGoogle } from 'react-icons/fc';
+
 import { useAuth } from '@lib/auth';
 
 const Login = () => {

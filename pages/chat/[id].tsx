@@ -1,8 +1,12 @@
-import ChatScreen, {
-  ChatMessage,
-  MessageInput,
-  RecipientHeader,
-} from '@components/ChatScreen';
+import React, { useRef } from 'react';
+import { useRouter } from 'next/router';
+import { Timestamp } from 'firebase/firestore';
+import { useCollection } from 'react-firebase-hooks/firestore';
+
+import ChatScreen from '@components/ChatScreen';
+import { ChatMessage } from '@components/ChatScreen/ChatMessage';
+import { RecipientHeader } from '@components/ChatScreen/Header';
+import { MessageInput } from '@components/ChatScreen/MessageInput';
 import Loader from '@components/Loader';
 import { useAuth } from '@lib/auth';
 import {
@@ -13,12 +17,8 @@ import {
   getRecipientUserRef,
 } from '@lib/db';
 import getSendingToEmail from '@utils/getSendingToEmail';
-import { Timestamp } from 'firebase/firestore';
-import { useRouter } from 'next/router';
-import React, { useRef } from 'react';
-import { useCollection } from 'react-firebase-hooks/firestore';
 
-const ChatSession = ({ messages, chat }) => {
+const ChatSession = ({ chat }) => {
   const { user } = useAuth();
   const router = useRouter();
 
