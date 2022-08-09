@@ -55,13 +55,13 @@ const ChatItem = ({ id, users }) => {
         {recipient ? (
           <Image
             src={recipient?.photoUrl}
-            width='50px'
-            height='50px'
+            width='42px'
+            height='42px'
             className='rounded-full'
             alt={recipient?.name}
           />
         ) : (
-          <div className='bg-gray-500 h-[50px] w-[50px] rounded-full flex items-center justify-center'>
+          <div className='bg-gray-500 h-[42px] w-[42px] rounded-full flex items-center justify-center'>
             <AiOutlineUser size={30} className='text-gray-100' />
           </div>
         )}
