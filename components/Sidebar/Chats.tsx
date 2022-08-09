@@ -10,12 +10,18 @@ import getSendingToEmail from '@utils/getSendingToEmail';
 import { AiOutlineUser } from 'react-icons/ai';
 import { useAuth } from '@lib/auth';
 
-export const ChatFeed = ({ snapshot }) => {
+export const ChatFeed = ({ snapshot, search = '' }) => {
+  const { user } = useAuth();
+
   return (
     <div className='overflow-y-scroll h-full'>
-      {snapshot?.docs.map(chat => (
-        <ChatItem key={chat.id} id={chat.id} users={chat.data().users} />
-      ))}
+      {snapshot?.docs
+        .filter(chat =>
+          getSendingToEmail(chat.data().users, user.email).includes(search)
+        )
+        .map(chat => (
+          <ChatItem key={chat.id} id={chat.id} users={chat.data().users} />
+        ))}
     </div>
   );
 };

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-export const SearchBar = () => {
+export const SearchBar = ({ search, setSearch }) => {
   return (
     <form className='px-4 py-2'>
       <div className='bg-gray-700 w-full flex rounded-lg '>
@@ -25,6 +25,8 @@ export const SearchBar = () => {
           type='search'
           className='bg-transparent w-full outline-none'
           placeholder='Search...'
+          value={search}
+          onChange={e => setSearch(e.target.value)}
           required
         />
       </div>

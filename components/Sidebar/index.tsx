@@ -17,6 +17,8 @@ const Sidebar = () => {
   const auth = useAuth();
   const userChatRef = getChatRef(auth.user.email);
   const [snapshot, loading, error] = useCollection(userChatRef);
+  const [search, setSearch] = useState('');
+
   const router = useRouter();
 
   if (loading)
@@ -34,8 +36,8 @@ const Sidebar = () => {
         } `}
       >
         <Topbar user={auth.user} snapshot={snapshot} />
-        <SearchBar />
-        {snapshot.docs && <ChatFeed snapshot={snapshot} />}
+        <SearchBar search={search} setSearch={setSearch} />
+        {snapshot.docs && <ChatFeed snapshot={snapshot} search={search} />}
       </aside>
     </>
   );
